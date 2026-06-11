@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light mode — Warm Cream */
+    --bg-canvas: #faf7f0;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8f4ec;
+    --bg-input: #f8f4ec;
+    --text-primary: #1e1b18;
+    --text-secondary: #5c5751;
+    --text-muted: #8c8680;
+    --accent: #b26d2a;
+    --accent-hover: #925720;
+    --color-available: #2e7d32;
+    --color-reserved: #b8860b;
+    --color-sold: #c0392b;
+    --radius-card: 12px;
+    --radius-btn: 6px;
+  }
+
+  .dark {
+    --bg-canvas: #0d0d0e;
+    --bg-card: #141415;
+    --bg-card-hover: #1c1c1d;
+    --bg-input: #1a1a1c;
+    --text-primary: #f0efed;
+    --text-secondary: #b8b5b0;
+    --text-muted: #7c7872;
+    --accent: #d49a50;
+    --accent-hover: #e0ae66;
+  }
+
+  * {
+    @apply border-gray-200 dark:border-gray-800;
+  }
+
+  html {
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    @apply bg-canvas text-text-primary antialiased;
+    font-size: 17px;
+    line-height: 1.55;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Focus visible global */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2;
+    outline-color: var(--accent);
+  }
+}
+
+@layer components {
+  /* Typography scale */
+  .h1 { @apply text-[32px] font-bold leading-tight -tracking-[0.02em]; }
+  .h2 { @apply text-[26px] font-semibold leading-tight -tracking-[0.02em]; }
+  .h3 { @apply text-[22px] font-semibold leading-snug; }
+  .h4 { @apply text-[18px] font-semibold leading-snug; }
+  .body { @apply text-[17px] leading-relaxed; }
+  .small { @apply text-[14px] leading-normal; }
+  .caption { @apply text-[13px] leading-normal text-text-muted; }
+  .micro { @apply text-[11px] leading-normal text-text-muted uppercase tracking-wider font-medium; }
+
+  /* Status badges */
+  .badge-available {
+    @apply inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-[13px] font-medium;
+    color: var(--color-available);
+    background: color-mix(in srgb, var(--color-available) 12%, transparent);
+  }
+  .badge-reserved {
+    @apply inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-[13px] font-medium;
+    color: var(--color-reserved);
+    background: color-mix(in srgb, var(--color-reserved) 12%, transparent);
+  }
+  .badge-sold {
+    @apply inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-[13px] font-medium;
+    color: var(--color-sold);
+    background: color-mix(in srgb, var(--color-sold) 12%, transparent);
+  }
+
+  /* Card variants */
+  .card-default {
+    @apply rounded-card bg-card shadow-card transition-shadow duration-200;
+  }
+  .card-default:hover {
+    @apply shadow-card-hover;
+  }
+  .card-clickable {
+    @apply card-default cursor-pointer transition-all duration-200 hover:-translate-y-0.5;
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    @apply animate-pulse rounded bg-gray-200 dark:bg-gray-800;
+  }
+
+  /* Container */
+  .container-loja {
+    @apply mx-auto w-full max-w-container px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Touch target minimum */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
+
+/* Smooth theme transition */
+*,
+*::before,
+*::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
