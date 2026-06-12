@@ -1,6 +1,16 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createServerSupabaseClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  // Redirect authenticated users to dashboard
+  if (user) {
+    redirect("/dashboard");
+  }
+
   return (
     <main className="container-loja min-h-screen flex items-center justify-center">
       <div className="text-center space-y-6 max-w-lg">
@@ -20,7 +30,7 @@ export default function Home() {
           </Link>
           <Link
             href="/signup"
-            className="inline-flex items-center justify-center rounded-btn border border-gray-300 px-6 py-3 text-text-primary font-medium hover:bg-card-hover transition-colors touch-target"
+            className="inline-flex items-center justify-center rounded-btn border border-gray-300 dark:border-gray-700 px-6 py-3 text-text-primary font-medium hover:bg-card-hover transition-colors touch-target"
           >
             Criar Conta
           </Link>

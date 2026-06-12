@@ -50,6 +50,26 @@ const config: Config = {
           reserved: "#b8860b",
           sold: "#c0392b",
         },
+        // shadcn semantic tokens for @apply compatibility
+        background: "oklch(1 0 0)",
+        foreground: "oklch(0.145 0 0)",
+        border: "oklch(0.922 0 0)",
+        ring: "oklch(0.708 0 0)",
+        destructive: "oklch(0.577 0.245 27.325)",
+        muted: "oklch(0.97 0 0)",
+        "muted-foreground": "oklch(0.556 0 0)",
+        popover: "oklch(1 0 0)",
+        "popover-foreground": "oklch(0.145 0 0)",
+        primary: {
+          DEFAULT: "oklch(0.205 0 0)",
+          foreground: "oklch(0.985 0 0)",
+        },
+        secondary: {
+          DEFAULT: "oklch(0.97 0 0)",
+          foreground: "oklch(0.205 0 0)",
+        },
+        "accent-foreground": "oklch(0.205 0 0)",
+        "card-foreground": "oklch(0.145 0 0)",
       },
       borderRadius: {
         card: "12px",

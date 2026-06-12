@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { ToastProvider } from "@/hooks/use-toast";
+import { ToastContainer } from "@/components/Toast";
+import { Navbar } from "@/components/Navbar";
+import { CartProvider } from "@/contexts/CartContext";
+import { CartDrawer } from "@/components/CartDrawer";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-sans",
   weight: ["400", "500", "600", "700"],
 });
 
@@ -31,7 +38,7 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      className={cn(inter.variable, jetbrainsMono.variable, "font-sans")}
     >
       <head>
         <script
@@ -51,7 +58,16 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-canvas text-text-primary">
-        {children}
+        <TooltipProvider delay={300}>
+          <ToastProvider>
+            <CartProvider>
+              <Navbar />
+              <main className="container-loja py-6">{children}</main>
+              <CartDrawer />
+              <ToastContainer />
+            </CartProvider>
+          </ToastProvider>
+        </TooltipProvider>
       </body>
     </html>
   );
