@@ -12,7 +12,7 @@ import { CartDrawer } from "@/components/CartDrawer";
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-sans",
+  variable: "--font-inter",
   weight: ["400", "500", "600", "700"],
 });
 
@@ -38,7 +38,7 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={cn(inter.variable, jetbrainsMono.variable, "font-sans")}
+      className={cn(inter.variable, jetbrainsMono.variable)}
     >
       <head>
         <script
@@ -57,7 +57,16 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-canvas text-text-primary">
+      <body
+        className="min-h-screen antialiased"
+        style={{
+          backgroundColor: "var(--bg-canvas)",
+          color: "var(--text-primary)",
+          fontFamily: "var(--font-inter), system-ui, sans-serif",
+          fontSize: "17px",
+          lineHeight: 1.55,
+        }}
+      >
         <TooltipProvider delay={300}>
           <ToastProvider>
             <CartProvider>

@@ -17,84 +17,76 @@ const config: Config = {
         base: "17px",
       },
       colors: {
+        // Our design system — warm cream + copper
         canvas: {
-          DEFAULT: "#faf7f0",
-          dark: "#0d0d0e",
+          DEFAULT: "var(--bg-canvas)",
         },
         card: {
-          DEFAULT: "#ffffff",
-          hover: "#f8f4ec",
-          dark: "#141415",
-          "dark-hover": "#1c1c1d",
+          DEFAULT: "var(--bg-card)",
+          hover: "var(--bg-card-hover)",
         },
         input: {
-          DEFAULT: "#f8f4ec",
-          dark: "#1a1a1c",
+          DEFAULT: "var(--bg-input)",
         },
-        text: {
-          primary: "#1e1b18",
-          secondary: "#5c5751",
-          muted: "#8c8680",
-          "primary-dark": "#f0efed",
-          "secondary-dark": "#b8b5b0",
-          "muted-dark": "#7c7872",
-        },
+        "text-primary": "var(--text-primary)",
+        "text-secondary": "var(--text-secondary)",
+        "text-muted": "var(--text-muted)",
         accent: {
-          DEFAULT: "#b26d2a",
-          hover: "#925720",
-          dark: "#d49a50",
-          "dark-hover": "#e0ae66",
+          DEFAULT: "var(--accent)",
+          hover: "var(--accent-hover)",
+          foreground: "var(--accent-foreground)",
         },
         status: {
-          available: "#2e7d32",
-          reserved: "#b8860b",
-          sold: "#c0392b",
+          available: "var(--color-available)",
+          reserved: "var(--color-reserved)",
+          sold: "var(--color-sold)",
         },
-        // shadcn semantic tokens for @apply compatibility
-        background: "oklch(1 0 0)",
-        foreground: "oklch(0.145 0 0)",
-        border: "oklch(0.922 0 0)",
-        ring: "oklch(0.708 0 0)",
-        destructive: "oklch(0.577 0.245 27.325)",
-        muted: "oklch(0.97 0 0)",
-        "muted-foreground": "oklch(0.556 0 0)",
-        popover: "oklch(1 0 0)",
-        "popover-foreground": "oklch(0.145 0 0)",
+        // shadcn semantic tokens — all mapped to our CSS variables
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        border: "var(--border)",
+        ring: "var(--ring)",
         primary: {
-          DEFAULT: "oklch(0.205 0 0)",
-          foreground: "oklch(0.985 0 0)",
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
         },
         secondary: {
-          DEFAULT: "oklch(0.97 0 0)",
-          foreground: "oklch(0.205 0 0)",
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
         },
-        "accent-foreground": "oklch(0.205 0 0)",
-        "card-foreground": "oklch(0.145 0 0)",
+        destructive: {
+          DEFAULT: "var(--destructive)",
+          foreground: "var(--destructive-foreground)",
+        },
+        muted: {
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
+        popover: {
+          DEFAULT: "var(--popover)",
+          foreground: "var(--popover-foreground)",
+        },
       },
       borderRadius: {
-        card: "12px",
-        btn: "6px",
+        card: "var(--radius-card)",
+        btn: "var(--radius-btn)",
         pill: "9999px",
       },
       boxShadow: {
         card: "0 0 0 1px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.04)",
-        "card-hover":
-          "0 0 0 1px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.08)",
+        "card-hover": "0 0 0 1px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.08)",
       },
       maxWidth: {
         container: "1320px",
       },
       spacing: {
-        "touch": "44px",
+        touch: "44px",
       },
       transitionDuration: {
         "200": "200ms",
       },
       keyframes: {
-        "fade-in": {
-          from: { opacity: "0" },
-          to: { opacity: "1" },
-        },
+        "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
         "slide-in-right": {
           from: { transform: "translateX(100%)" },
           to: { transform: "translateX(0)" },

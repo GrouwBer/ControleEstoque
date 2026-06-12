@@ -9,19 +9,14 @@ import { ThemeToggle } from "@/components/ThemeToggle"
 import { UserMenu } from "@/components/UserMenu"
 import { useCart } from "@/contexts/CartContext"
 
-// ── Navigation links ─────────────────────────────────────────────────────────
-
 const NAV_LINKS = [
-  { href: "/dashboard", label: "Dashboard", icon: TrendingUp },
+  { href: "/dashboard", label: "Painel", icon: TrendingUp },
   { href: "/produtos", label: "Produtos", icon: Package },
   { href: "/vendas", label: "Vendas", icon: ReceiptText },
   { href: "/reservas", label: "Reservas", icon: CalendarDays },
 ] as const
 
-// ── Props ────────────────────────────────────────────────────────────────────
-
 interface NavbarProps {
-  cartCount?: number
   user?: {
     name?: string | null
     email?: string | null
@@ -29,46 +24,36 @@ interface NavbarProps {
   } | null
 }
 
-// ── Navbar ───────────────────────────────────────────────────────────────────
-
-export function Navbar({ cartCount = 0, user }: NavbarProps) {
+export function Navbar({ user }: NavbarProps) {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const { toggleCart, cartState } = useCart()
+  const liveCount = cartState.items?.length ?? 0
 
-  // Auto-open drawer on #cart hash
   useEffect(() => {
     if (window.location.hash === "#cart") {
       toggleCart()
-      // Clean the hash without page reload
       window.history.replaceState(null, "", window.location.pathname + window.location.search)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // Use live count from context if available, fall back to prop
-  const liveCount = cartState.items?.length ?? cartCount
 
   return (
     <header
-      className={cn(
-        "sticky top-0 z-50 w-full",
-        "bg-[#faf7f0] dark:bg-[#0d0d0e]",
-        "border-b border-border/60",
-        "backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95"
-      )}
+      className="sticky top-0 z-50 w-full bg-canvas/95 backdrop-blur-sm border-b"
+      style={{ borderColor: "var(--border)" }}
     >
       <nav className="container-loja flex items-center justify-between h-14">
-        {/* ── Logo ─────────────────────────────────────────────────── */}
+        {/* Logo */}
         <Link
-          href="/"
-          className="flex items-center gap-2 font-bold text-lg text-foreground hover:text-accent transition-colors shrink-0"
+          href="/dashboard"
+          className="flex items-center gap-2 font-bold text-lg shrink-0"
+          style={{ color: "var(--text-primary)" }}
         >
           <span className="hidden sm:inline">Projeto Loja</span>
-          <span className="sm:hidden">PL</span>
+          <span className="sm:hidden font-bold">PL</span>
         </Link>
 
-        {/* ── Desktop Nav ──────────────────────────────────────────── */}
+        {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href || pathname.startsWith(link.href + "/")
@@ -78,12 +63,12 @@ export function Navbar({ cartCount = 0, user }: NavbarProps) {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                  "touch-target",
+                  "inline-flex items-center gap-1.5 rounded-md px-3 py-2 font-medium transition-colors touch-target",
                   isActive
-                    ? "bg-accent/10 text-accent"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "text-[var(--accent)]"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]"
                 )}
+                style={{ fontSize: "15px" }}
               >
                 <Icon className="size-4" />
                 {link.label}
@@ -92,38 +77,33 @@ export function Navbar({ cartCount = 0, user }: NavbarProps) {
           })}
         </div>
 
-        {/* ── Right actions ────────────────────────────────────────── */}
+        {/* Right actions */}
         <div className="flex items-center gap-1">
-          {/* Cart badge */}
+          {/* Cart */}
           <button
             onClick={toggleCart}
-            className={cn(
-              "relative inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors touch-target"
-            )}
+            className="relative inline-flex items-center justify-center rounded-md p-2 transition-colors touch-target"
+            style={{ color: "var(--text-secondary)" }}
             aria-label={`Carrinho de compras, ${liveCount} ${liveCount === 1 ? "item" : "itens"}`}
           >
             <ShoppingCart className="size-5" />
             {liveCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center size-4 rounded-full bg-accent text-[10px] font-bold text-white leading-none">
+              <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center size-4 rounded-full text-[10px] font-bold text-white leading-none"
+                style={{ backgroundColor: "var(--accent)" }}
+              >
                 {liveCount > 99 ? "99+" : liveCount}
               </span>
             )}
           </button>
 
-          {/* Theme toggle */}
           <ThemeToggle />
+          <div className="ml-1"><UserMenu user={user} /></div>
 
-          {/* User menu */}
-          <div className="ml-1">
-            <UserMenu user={user} />
-          </div>
-
-          {/* ── Mobile hamburger ─────────────────────────────── */}
+          {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen((prev) => !prev)}
-            className={cn(
-              "md:hidden inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors touch-target"
-            )}
+            className="md:hidden inline-flex items-center justify-center rounded-md p-2 transition-colors touch-target"
+            style={{ color: "var(--text-secondary)" }}
             aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={mobileOpen}
           >
@@ -132,9 +112,9 @@ export function Navbar({ cartCount = 0, user }: NavbarProps) {
         </div>
       </nav>
 
-      {/* ── Mobile menu ──────────────────────────────────────────────── */}
+      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-border/60 bg-[#faf7f0] dark:bg-[#0d0d0e]">
+        <div className="md:hidden border-t" style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-canvas)" }}>
           <div className="container-loja py-2 flex flex-col gap-1">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href || pathname.startsWith(link.href + "/")
@@ -145,12 +125,10 @@ export function Navbar({ cartCount = 0, user }: NavbarProps) {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "inline-flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium transition-colors",
-                    "touch-target",
-                    isActive
-                      ? "bg-accent/10 text-accent"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    "inline-flex items-center gap-3 rounded-md px-3 py-3 font-medium transition-colors touch-target",
+                    isActive ? "text-[var(--accent)]" : "text-[var(--text-secondary)]"
                   )}
+                  style={{ fontSize: "16px" }}
                 >
                   <Icon className="size-5" />
                   {link.label}
