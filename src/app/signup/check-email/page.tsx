@@ -1,0 +1,67 @@
+import Link from "next/link";
+import { Mail, ArrowLeft } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+
+/**
+ * Página exibida após cadastro bem-sucedido.
+ * Informa o usuário para verificar o email e confirmar a conta.
+ */
+export default function SignupCheckEmailPage() {
+  return (
+    <main className="container-loja min-h-screen flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-md animate-fade-in">
+        {/* Cabeçalho */}
+        <div className="text-center mb-8">
+          <Link
+            href="/"
+            className="inline-block text-2xl font-bold text-text-primary hover:text-accent transition-colors"
+          >
+            Projeto Loja
+          </Link>
+          <h1 className="h2 text-text-primary mt-4">Quase pronto!</h1>
+          <p className="body text-text-secondary mt-2">
+            Falta apenas um passo para ativar sua conta.
+          </p>
+        </div>
+
+        <Card className="shadow-card">
+          <CardContent className="pt-6 pb-6">
+            <div className="text-center space-y-4">
+              <div className="mx-auto w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center">
+                <Mail className="size-7 text-accent" />
+              </div>
+
+              <div>
+                <p className="body text-text-primary font-medium">
+                  Verifique sua caixa de entrada
+                </p>
+                <p className="text-sm text-text-secondary mt-2">
+                  Enviamos um link de confirmação para o email informado.
+                  Clique no link para ativar sua conta.
+                </p>
+                <p className="text-sm text-text-secondary mt-2">
+                  O link expira em 24 horas. Não se esqueça de verificar a
+                  pasta de spam se não encontrar o email.
+                </p>
+              </div>
+
+              <div className="pt-3 space-y-3">
+                <Link
+                  href="/login"
+                  className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent-hover transition-colors"
+                >
+                  <ArrowLeft className="size-4" />
+                  Ir para o login
+                </Link>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <p className="text-center caption mt-6">
+          Projeto Loja — Controle de Estoque
+        </p>
+      </div>
+    </main>
+  );
+}
